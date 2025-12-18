@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>被选中者 - The Chosen One</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="app" class="theme-system">
+        <!-- 动态背景层 -->
+        <div class="bg-layer">
+            <div class="grid-overlay"></div>
+            <div class="scanline"></div>
+            <div class="vignette"></div>
+        </div>
+
+        <!-- 游戏主容器 (Grid布局) -->
+        <div class="game-wrapper">
+            
+            <!-- 顶部 HUD -->
+            <header class="hud-header">
+                <div class="hud-group left">
+                    <div class="hud-label">LOCATION</div>
+                    <div class="hud-value" id="location-display">UNKNOWN SECTOR</div>
+                </div>
+                <div class="hud-group center">
+                    <div class="hud-title">THE CHOSEN ONE</div>
+                    <div class="hud-sub">SYSTEM ONLINE</div>
+                </div>
+                <div class="hud-group right">
+                    <div class="hud-label">TIME</div>
+                    <div class="hud-value" id="time-display">--:--</div>
+                </div>
+            </header>
+
+            <!-- 左侧边栏：属性监控 -->
+            <aside class="side-panel left-panel">
+                <div class="panel-header">STATUS MONITOR</div>
+                
+                <div class="stat-module">
+                    <div class="stat-header">
+                        <span class="stat-name">CHARM</span>
+                        <span class="stat-num" id="val-charm">50</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar charm-bar" id="stat-charm" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-module">
+                    <div class="stat-header">
+                        <span class="stat-name">THREAT</span>
+                        <span class="stat-num" id="val-threat">0</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar threat-bar" id="stat-threat" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-module">
+                    <div class="stat-header">
+                        <span class="stat-name">OBSERVATION</span>
+                        <span class="stat-num" id="val-observation">50</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar obs-bar" id="stat-observation" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-module">
+                    <div class="stat-header">
+                        <span class="stat-name">SURVIVAL</span>
+                        <span class="stat-num" id="val-survival">50</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-bar surv-bar" id="stat-survival" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <div class="points-module">
+                    <div class="points-label">TOTAL POINTS</div>
+                    <div class="points-val" id="points-display">0000</div>
+                </div>
+            </aside>
+
+            <!-- 中央主视窗 -->
+            <main class="main-viewport">
+                <!-- 装饰角标 -->
+                <div class="corner-deco tl"></div>
+                <div class="corner-deco tr"></div>
+                <div class="corner-deco bl"></div>
+                <div class="corner-deco br"></div>
+
+                <div class="content-scroll-area">
+                    <div id="story-text" class="story-container">
+                        <!-- 动态文本 -->
+                    </div>
+                </div>
+            </main>
+
+            <!-- 底部控制台 -->
+            <section class="control-deck">
+                <div class="deck-header">决策终端</div>
+                <div id="options-container" class="options-grid">
+                    <!-- 动态生成按钮 -->
+                </div>
+            </section>
+
+            <!-- 右侧边栏：功能菜单 -->
+            <aside class="side-panel right-panel">
+                <div class="panel-header">系统菜单</div>
+                <button id="btn-inventory" class="menu-btn">
+                    <span class="icon">🎒</span> 物品背包
+                </button>
+                <button id="btn-relations" class="menu-btn">
+                    <span class="icon">👥</span> 人际关系
+                </button>
+                <button id="btn-save" class="menu-btn">
+                    <span class="icon">💾</span> 保存进度
+                </button>
+                <div class="panel-deco-bottom"></div>
+            </aside>
+
+            <!-- 移动端底部导航栏 -->
+            <nav class="mobile-nav">
+                <button class="nav-btn active" data-target="main">
+                    <span class="icon">📺</span> 剧情
+                </button>
+                <button class="nav-btn" data-target="status">
+                    <span class="icon">📊</span> 状态
+                </button>
+                <button class="nav-btn" data-target="menu">
+                    <span class="icon">⚙️</span> 系统
+                </button>
+            </nav>
+        </div>
+
+        <!-- 模态窗口 -->
+        <div id="modal-overlay" class="hidden">
+            <div id="modal-content" class="cyber-modal">
+                <div class="modal-header">
+                    <h2 id="modal-title">系统警报</h2>
+                    <button id="modal-close" class="close-btn">×</button>
+                </div>
+                <div id="modal-body" class="modal-body-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data/items.js"></script>
+    <script src="js/data/characters.js"></script>
+    <script src="js/data/scenes.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
