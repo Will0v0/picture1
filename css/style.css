@@ -518,15 +518,22 @@ body {
     .side-panel {
         position: absolute;
         top: 50px;
-        bottom: 240px; /* Leave space for deck + nav */
+        bottom: 60px; /* 修正：底部留出导航栏高度，避免遮挡 */
         left: 0;
         width: 100%;
         z-index: 100;
         display: none; /* Controlled by JS */
+        overflow-y: auto; /* 允许滚动 */
     }
     
     .side-panel.active {
         display: flex;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     /* 4. Main Viewport */
@@ -534,18 +541,23 @@ body {
         border-radius: 0;
         border-left: none;
         border-right: none;
+        overflow-y: hidden; /* 防止双重滚动 */
+        display: flex;
+        flex-direction: column;
     }
 
     .content-scroll-area {
         padding: 15px;
+        height: 100%; /* 确保填满 */
     }
 
     /* 5. Control Deck */
     .control-deck {
         padding: 10px;
-        z-index: 110;
+        z-index: 90; /* 降低层级，确保侧边栏能盖住它 */
         border-left: none;
         border-right: none;
+        background: rgba(0,0,0,0.8); /* 加深背景，防止文字重叠 */
     }
     
     .options-grid {
