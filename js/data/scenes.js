@@ -307,11 +307,121 @@ const SCENES = {
     "reality_choice_evening": {
         id: "reality_choice_evening",
         type: "reality",
-        text: `夜深了。你回到自己的房间，但那种不安的感觉却越来越强烈。<br><br>突然，你的直觉疯狂预警。一股血腥味似乎穿透了空间。<br>是苏晓晓。`,
+        text: `夜深了。你回到自己的房间，但那种不安的感觉却越来越强烈。<br><br>就在这时，你听到了客厅传来母亲回家的声音。`,
+        choices: [
+            {
+                text: "出去看看 (进入母亲线)",
+                nextScene: "reality_mom_start"
+            },
+            {
+                text: "不管她，继续睡觉 (进入苏晓晓线)",
+                nextScene: "reality_choice_evening_original"
+            }
+        ]
+    },
+    "reality_choice_evening_original": {
+        id: "reality_choice_evening_original",
+        type: "reality",
+        text: `你翻了个身，决定不理会客厅的动静。<br><br>突然，你的直觉疯狂预警。一股血腥味似乎穿透了空间。<br>是苏晓晓。`,
         choices: [
             {
                 text: "主动出击，寻找苏晓晓",
                 nextScene: "prologue_next_mission"
+            }
+        ]
+    },
+
+    // ==========================================
+    // 妈妈线：升学风波
+    // ==========================================
+    "reality_mom_start": {
+        id: "reality_mom_start",
+        type: "reality",
+        text: window.GAME_DIALOGUES["reality_mom_start"],
+        choices: [
+            {
+                text: "询问她发生了什么",
+                nextScene: "reality_mom_confess"
+            }
+        ]
+    },
+    "reality_mom_confess": {
+        id: "reality_mom_confess",
+        type: "reality",
+        text: window.GAME_DIALOGUES["reality_mom_confess"],
+        choices: [
+            {
+                text: "沉默，听她说完",
+                nextScene: "reality_mom_decision"
+            }
+        ]
+    },
+    "reality_mom_decision": {
+        id: "reality_mom_decision",
+        type: "reality",
+        text: window.GAME_DIALOGUES["reality_mom_decision"],
+        choices: [
+            {
+                text: "去找李渊了解那个‘俱乐部’ (进入偷窥线)",
+                nextScene: "reality_mom_ask_liyuan",
+                effect: (state) => {
+                    state.attributes.observation += 5;
+                    state.flags["mom_fallen_path"] = true;
+                }
+            },
+            {
+                text: "无论如何也要阻止她 (暂未开放)",
+                nextScene: "reality_choice_evening_original", // 暂时回归主线
+                effect: (state) => state.relations["mom"].affection += 10
+            }
+        ]
+    },
+    "reality_mom_ask_liyuan": {
+        id: "reality_mom_ask_liyuan",
+        type: "reality",
+        text: window.GAME_DIALOGUES["reality_mom_ask_liyuan"],
+        choices: [
+            {
+                text: "去李渊家看直播",
+                nextScene: "reality_mom_stream_start",
+                effect: (state) => state.attributes.threat += 5
+            }
+        ]
+    },
+    "reality_mom_stream_start": {
+        id: "reality_mom_stream_start",
+        type: "reality", 
+        text: window.GAME_DIALOGUES["reality_mom_stream_start"],
+        choices: [
+            {
+                text: "看向屏幕",
+                nextScene: "reality_mom_stream_content"
+            }
+        ]
+    },
+    "reality_mom_stream_content": {
+        id: "reality_mom_stream_content",
+        type: "reality",
+        text: window.GAME_DIALOGUES["reality_mom_stream_content"],
+        choices: [
+            {
+                text: "强忍着愤怒继续看下去",
+                nextScene: "reality_mom_stream_end",
+                effect: (state) => {
+                     state.relations["mom"].shame += 20;
+                     state.san -= 10;
+                }
+            }
+        ]
+    },
+    "reality_mom_stream_end": {
+        id: "reality_mom_stream_end",
+        type: "reality",
+        text: window.GAME_DIALOGUES["reality_mom_stream_end"],
+        choices: [
+            {
+                text: "未完待续...",
+                nextScene: "demo_end"
             }
         ]
     },
